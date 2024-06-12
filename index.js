@@ -31,7 +31,7 @@ app.post("/webhook", function (req, res) {
     });
 
 
-    console.log(req.body.events[0].replyToken)
+    console.log(req.body.events[0])
     const headers = {
       "Content-Type": "application/json",
       Authorization: "Bearer " + TOKEN,
