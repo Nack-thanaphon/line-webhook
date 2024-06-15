@@ -118,7 +118,7 @@ app.get("/user/getAll", async function (req, res) {
 
 app.post("/user/create-user", async function (req, res) {
   try {
-    const data = await createUser(req);
+    const data = await createUser(req,res);
     return data;
   } catch (error) {
     return res.status(500).json({ error: error.message });
