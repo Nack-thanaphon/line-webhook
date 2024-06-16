@@ -133,21 +133,20 @@ app.post("/sendLine", async function (req, res) {
     const url = "https://api.line.me/v2/bot/message/push";
     console.log("data >>>>>>>>>", data);
 
-    try {
-      if (authHeader) {
+    if (authHeader) {
+      try {
         const token = authHeader.slice(7);
-        // console.log("token >>>>>>>>>", token);
         await axios.post(url, data, {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer e1l7kAgUdMdDoCmJs3xyDu0R1yXIGedLufWKFYcAGQjgERyrPzImX6w14qLAXKWC/ZHsPuaRNR84k4V03tn0ZakqxVCLdTwChapiTEn1NnnW1nfvqhDlx0KFHMk8wRUXuFoeFZy5NlcnTpEKGT3hdAdB04t89/1O/w1cDnyilFU=`
+            Authorization: `Bearer ` + token
           }
         });
         return res.status(200).json({ message: "success" });
+      } catch (error) {
+        console.error(`Error in sendPost: ${error}`);
+        return res.status(500).json({ message: error.message });
       }
-    } catch (error) {
-      console.error(`Error in sendPost: ${error}`);
-      return res.status(500).json({ message: error.message });
     }
   } catch (error) {
     return res.status(500).json({ error: error.message });
