@@ -129,17 +129,16 @@ app.post("/user/create-user", async function (req, res) {
 app.post("/sendLine", async function (req, res) {
   try {
     const authHeader = req.headers.authorization;
-    const data = req.body.data;
-    const url = "https://api.line.me/v2/bot/message/validate/push";
+    const data = req.body;
+    const url = "https://api.line.me/v2/bot/message/push";
     console.log("data >>>>>>>>>", data);
 
     try {
       if (authHeader) {
         const token = authHeader.slice(7);
-        console.log("token >>>>>>>>>", token);
+        // console.log("token >>>>>>>>>", token);
         await axios.post(url, data, {
           headers: {
-            "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
             Authorization: `Bearer e1l7kAgUdMdDoCmJs3xyDu0R1yXIGedLufWKFYcAGQjgERyrPzImX6w14qLAXKWC/ZHsPuaRNR84k4V03tn0ZakqxVCLdTwChapiTEn1NnnW1nfvqhDlx0KFHMk8wRUXuFoeFZy5NlcnTpEKGT3hdAdB04t89/1O/w1cDnyilFU=`
           }
