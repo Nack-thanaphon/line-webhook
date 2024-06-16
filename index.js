@@ -27,6 +27,7 @@ app.get("/", (req, res) => {
 
 app.post("/webhook", function (req, res) {
   try {
+    res.send("HTTP POST request sent to the webhook URL!");
     if (req.body && req.body.events[0].type === "message") {
       const dataString = JSON.stringify({
         replyToken: req.body.events[0].replyToken,
@@ -40,7 +41,6 @@ app.post("/webhook", function (req, res) {
 
       console.log(JSON.stringify(req.body.events[0], null, 2));
 
-      res.send("HTTP POST request sent to the webhook URL!");
       const headers = {
         "Content-Type": "application/json",
         Authorization: "Bearer " + TOKEN
@@ -130,9 +130,12 @@ app.post("/sendLine", async function (req, res) {
     const authHeader = req.headers.authorization;
     const data = req.body.data;
     const url = "https://api.line.me/v2/bot/message/push";
+    console.log("authHeader >>>>>>>>>", authHeader);
+
     try {
       if (authHeader) {
         const token = authHeader.substring(7);
+        console.log("token >>>>>>>>>", token);
         await axios.post(url, data, {
           headers: {
             Authorization: `Bearer ${token}`
