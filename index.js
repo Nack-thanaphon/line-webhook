@@ -130,7 +130,7 @@ app.post("/sendLine", async function (req, res) {
   try {
     const authHeader = req.headers.authorization;
     const data = req.body.data;
-    const url = "https://api.line.me/v2/bot/message/push";
+    const url = "https://api.line.me/v2/bot/message/validate/push";
     console.log("data >>>>>>>>>", data);
 
     try {
