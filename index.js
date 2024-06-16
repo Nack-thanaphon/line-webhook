@@ -6,6 +6,7 @@ import connectDB from "./database/db.js";
 import cors from "cors"; // Import cors
 
 import * as dotenv from "dotenv";
+import axios from "axios";
 
 dotenv.config();
 
@@ -130,12 +131,12 @@ app.post("/sendLine", async function (req, res) {
     const authHeader = req;
     const data = req.body.data;
     const url = "https://api.line.me/v2/bot/message/push";
-    console.log("authHeader >>>>>>>>>", authHeader);
+    // console.log("authHeader >>>>>>>>>", authHeader);
 
     try {
       if (authHeader) {
         const token = authHeader.substring(7);
-        console.log("token >>>>>>>>>", token);
+        // console.log("token >>>>>>>>>", token);
         await axios.post(url, data, {
           headers: {
             Authorization: `Bearer ${token}`
