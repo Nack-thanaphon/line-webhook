@@ -131,7 +131,7 @@ app.post("/sendLine", async function (req, res) {
     const data = req.body.data;
     const url = "https://api.line.me/v2/bot/message/push";
     try {
-      if (authHeader && authHeader.startsWith("Bearer ")) {
+      if (authHeader) {
         const token = authHeader.substring(7);
         await axios.post(url, data, {
           headers: {
