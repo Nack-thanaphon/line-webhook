@@ -109,7 +109,7 @@ app.get("/getProfile", function (req, res) {
 
 app.get("/user/getAll", async function (req, res) {
   try {
-    const data = await getAllUsers(req,res); // Remove res from the arguments
+    const data = await getAllUsers(req, res); // Remove res from the arguments
     return data;
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -118,8 +118,31 @@ app.get("/user/getAll", async function (req, res) {
 
 app.post("/user/create-user", async function (req, res) {
   try {
-    const data = await createUser(req,res);
+    const data = await createUser(req, res);
     return data;
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+app.post("/sendLine", async function (req, res) {
+  try {
+    const authHeader = req.headers.authorization;
+    const data = req.body.data;
+    const url = "https://api.line.me/v2/bot/message/push";
+    try {
+      if (authHeader || authHeader.startsWith("Bearer ")) {
+        const response = await axios.post(url, data, {
+          headers: {
+            Authorization: `Bearer ${authHeader}`
+          }
+        });
+      }
+      return res.status(200).json({ message: "success" });
+    } catch (error) {
+      console.error(`Error in sendPost: ${error}`);
+      return res.status(500).json({ message: error.message });
+    }
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
