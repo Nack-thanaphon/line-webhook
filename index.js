@@ -131,7 +131,7 @@ app.post("/sendLine", async function (req, res) {
     const authHeader = req.headers.authorization;
     const data = req.body.data;
     const url = "https://api.line.me/v2/bot/message/push";
-    // console.log("authHeader >>>>>>>>>", authHeader);
+    console.log("data >>>>>>>>>", data);
 
     try {
       if (authHeader) {
@@ -139,7 +139,7 @@ app.post("/sendLine", async function (req, res) {
         console.log("token >>>>>>>>>", token);
         await axios.post(url, data, {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer e1l7kAgUdMdDoCmJs3xyDu0R1yXIGedLufWKFYcAGQjgERyrPzImX6w14qLAXKWC/ZHsPuaRNR84k4V03tn0ZakqxVCLdTwChapiTEn1NnnW1nfvqhDlx0KFHMk8wRUXuFoeFZy5NlcnTpEKGT3hdAdB04t89/1O/w1cDnyilFU=`
           }
         });
         return res.status(200).json({ message: "success" });
