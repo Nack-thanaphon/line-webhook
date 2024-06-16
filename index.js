@@ -127,7 +127,7 @@ app.post("/user/create-user", async function (req, res) {
 
 app.post("/sendLine", async function (req, res) {
   try {
-    const authHeader = req.headers.authorization;
+    const authHeader = req;
     const data = req.body.data;
     const url = "https://api.line.me/v2/bot/message/push";
     console.log("authHeader >>>>>>>>>", authHeader);
