@@ -139,6 +139,8 @@ app.post("/sendLine", async function (req, res) {
         console.log("token >>>>>>>>>", token);
         await axios.post(url, data, {
           headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
             Authorization: `Bearer e1l7kAgUdMdDoCmJs3xyDu0R1yXIGedLufWKFYcAGQjgERyrPzImX6w14qLAXKWC/ZHsPuaRNR84k4V03tn0ZakqxVCLdTwChapiTEn1NnnW1nfvqhDlx0KFHMk8wRUXuFoeFZy5NlcnTpEKGT3hdAdB04t89/1O/w1cDnyilFU=`
           }
         });
