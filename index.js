@@ -161,7 +161,7 @@ app.get("/getTotalSend", async function (req, res) {
     if (authHeader) {
       try {
         const token = authHeader.slice(7);
-        const response = await axios.get(url, data, {
+        const response = await axios.get(url, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ` + token
