@@ -169,7 +169,7 @@ app.get("/getTotalSend", async function (req, res) {
         });
         return res
           .status(200)
-          .json({ message: "success", totalUsage: response.totalUsage });
+          .json({ message: "success", totalUsage: response.value });
       } catch (error) {
         console.error(`Error in sendPost: ${error}`);
         return res.status(500).json({ message: error.message });
