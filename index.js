@@ -167,10 +167,10 @@ app.get("/getTotalSend", async function (req, res) {
             Authorization: `Bearer ` + token
           }
         });
-        // console.log( response.data.value)
+        console.log( response.data.totalUsage)
         return res
           .status(200)
-          .json({ message: "success", totalUsage: response.data.value });
+          .json({ message: "success", totalUsage: response.data.totalUsage });
       } catch (error) {
         console.error(`Error in sendPost: ${error}`);
         return res.status(500).json({ message: error.message });
