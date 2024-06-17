@@ -153,6 +153,33 @@ app.post("/sendLine", async function (req, res) {
   }
 });
 
+app.get("/getTotalSend", async function (req, res) {
+  try {
+    const authHeader = req.headers.authorization;
+    const url = "https://api.line.me/v2/bot/message/quota";
+
+    if (authHeader) {
+      try {
+        const token = authHeader.slice(7);
+        const response = await axios.get(url, data, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ` + token
+          }
+        });
+        return res
+          .status(200)
+          .json({ message: "success", totalUsage: response.totalUsage });
+      } catch (error) {
+        console.error(`Error in sendPost: ${error}`);
+        return res.status(500).json({ message: error.message });
+      }
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 const startServer = async () => {
   try {
     connectDB(process.env.MONGODB_URL);
