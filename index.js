@@ -156,7 +156,7 @@ app.post("/sendLine", async function (req, res) {
 app.get("/getTotalSend", async function (req, res) {
   try {
     const authHeader = req.headers.authorization;
-    const url = "https://api.line.me/v2/bot/message/quota";
+    const url = "https://api.line.me/v2/bot/message/quota/consumption";
 
     if (authHeader) {
       try {
