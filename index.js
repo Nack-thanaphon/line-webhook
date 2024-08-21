@@ -22,9 +22,9 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  return res.status(200).json({ message: "Line webhook is working!" });
-});
+// app.get("/", (req, res) => {
+//   return res.status(200).json({ message: "Line webhook is working!" });
+// });
 
 app.post("/webhook", function (req, res) {
   try {
