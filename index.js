@@ -167,10 +167,16 @@ app.get("/getTotalSend", async function (req, res) {
             Authorization: `Bearer ` + token
           }
         });
-        console.log( response.data.totalUsage)
+        console.log(response.data.totalUsage)
+        const limit = await getLimit(req);
+
         return res
           .status(200)
-          .json({ message: "success", totalUsage: response.data.totalUsage });
+          .json({
+            message: "success",
+            limit: limit,
+            total: response.data.totalUsage
+          });
       } catch (error) {
         console.error(`Error in sendPost: ${error}`);
         return res.status(500).json({ message: error.message });
@@ -180,6 +186,31 @@ app.get("/getTotalSend", async function (req, res) {
     return res.status(500).json({ error: error.message });
   }
 });
+
+async function getLimit(req) {
+  try {
+    const authHeader = req.headers.authorization;
+    const url = "https://api.line.me/v2/bot/message/quota";
+
+    if (authHeader) {
+      try {
+        const token = authHeader.slice(7);
+        const response = await axios.get(url, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ` + token
+          }
+        });
+        return response.data.value
+      } catch (error) {
+        console.error(`Error in sendPost: ${error}`);
+      }
+    }
+  } catch (error) {
+    console.error(`Error in sendPost: ${error}`);
+  }
+}
+
 
 const startServer = async () => {
   try {
