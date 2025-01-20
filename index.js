@@ -26,37 +26,47 @@ app.get("/", function (req, res) {
     message: "Hello World!"
   });
 });
+
+app.post("/active", async function (req, res) {
+  return res.status(200).json({
+    status: 'success',
+    message: 'success active app'
+  });
+})
+
+
+
 app.post("/webhook", async function (req, res) {
-    try {
-        if (!req.body?.events?.[0]?.type === "message") {
-            return res.status(400).json({
-                status: 'error',
-                message: 'Invalid webhook event'
-            });
-        }
-
-        const uid = req.body.events[0].source.userId;
-        const messageText = req.body.events[0].message.text;
-
-        const flexMessage = await getProductTemplate(messageText);
-        console.log('flexMessage',flexMessage)
-        const messageData = flexMessage 
-            ? await replyFlex(uid, flexMessage)
-            : await replyText(uid, 'ไม่พบข้อมูล');
-
-        return res.status(200).json({
-            status: 'success',
-            message: 'Message sent successfully',
-            data: messageData
-        });
-
-    } catch (error) {
-        console.error('Webhook error:', error);
-        return res.status(500).json({
-            status: 'error',
-            message: error.message || 'An error occurred'
-        });
+  try {
+    if (!req.body?.events?.[0]?.type === "message") {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Invalid webhook event'
+      });
     }
+
+    const uid = req.body.events[0].source.userId;
+    const messageText = req.body.events[0].message.text;
+
+    const flexMessage = await getProductTemplate(messageText);
+    console.log('flexMessage', flexMessage)
+    const messageData = flexMessage
+      ? await replyFlex(uid, flexMessage)
+      : await replyText(uid, 'ไม่พบข้อมูล');
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'Message sent successfully',
+      data: messageData
+    });
+
+  } catch (error) {
+    console.error('Webhook error:', error);
+    return res.status(500).json({
+      status: 'error',
+      message: error.message || 'An error occurred'
+    });
+  }
 });
 
 const startServer = async () => {
